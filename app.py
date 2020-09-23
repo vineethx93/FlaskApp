@@ -5,7 +5,6 @@ from resources.user import UserRegister
 from resources.auth import Login
 from resources.item import Item, Items
 from resources.store import Store, StoreList
-from db import db
 
 
 # following modules are created to use with this module
@@ -40,15 +39,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 api = Api(app)
 jwt = JWTManager(app)
-#db.init_app(app)
-
-# this will execute the below function before the first request hits the application
-@app.before_first_request
-def create_tables():
-    db.create_all()
-    # this will create the tables(as configured in the models)
-    # in the db URI - app.config['SQLALCHEMY_DATABASE_URI'] - IF NOT already existing
-
 
 # this will call the user.py->UserRegister class
 api.add_resource(UserRegister, '/register')
